@@ -2,27 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
-    public int speedBullet;
+    public float speedBullet;
     public Vector3 bulletDirection;
-    Rigidbody _rb;
-    // Start is called before the first frame update
-    void Start()
+    float _divisor_de_velocidad = 10;
+    public float dmg;
+    
+    public virtual void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+       // _rb = GetComponent<Rigidbody>();
     }
 
    
+
+
 
     private void FixedUpdate()
     {
         Move();
     }
-
-    void Move()
+    private void Update()
     {
-        _rb.position += bulletDirection.normalized* speedBullet * Time.deltaTime;
+        CheckIfIsOutOfBounds();
+    }
 
+    public virtual void Move()
+    {
+        
+        transform.position += bulletDirection * speedBullet / _divisor_de_velocidad ;
+
+    }
+
+    public virtual void Reset()
+    {
+        transform.position = GameManager.instance.player.transform.position + Vector3.forward * 1;
+    }
+
+    public static void BulletTurnOn(Bullet B)
+    {
+        B.Reset();
+
+        B.gameObject.SetActive(true);
+    }
+    public static void BulletTurnoff(Bullet B)
+    {
+        B.gameObject.SetActive(false);
+    }
+
+    public virtual void CheckIfIsOutOfBounds()
+    {
+        if (transform.position.z >= GameManager.instance.LimiteBalasEnZ.position.z)
+        {
+            BulletFactory.Instance.ReturnBulletToPull(this);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        BulletFactory.Instance.ReturnBulletToPull(this);
     }
 }

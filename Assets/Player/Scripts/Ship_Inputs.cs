@@ -51,12 +51,12 @@ public class Ship_Inputs
     {
 
     #if UNITY_STANDALONE
-        direction.x = Input.GetAxis("Horizontal");
-        direction.z = Input.GetAxis("Vertical");
+        direction.x = Input.GetAxisRaw("Horizontal");
+        direction.z = Input.GetAxisRaw("Vertical");
 
         if (Input.GetMouseButton(0))
         {
-            _attacks.Shoot();
+            //_attacks.Shoot();
         }
 
         if (Input.GetMouseButton(1))

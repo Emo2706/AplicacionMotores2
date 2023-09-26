@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : Bullet
+public class NormalEnemyBullet : EnemyBullet
 {
-    
     // Start is called before the first frame update
-   
+    
 
-
-    private void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
-        Move();
+        
     }
-
-   
 }

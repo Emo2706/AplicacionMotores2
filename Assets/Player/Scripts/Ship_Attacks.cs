@@ -8,17 +8,37 @@ public class Ship_Attacks
     Bullet _bullet;
     int _specialShootCounter;
     [SerializeField] int _specialShootCooldown;
+    float _shootrate;
+    float _shootrateCooldown;
+    public bool isShooting;
 
-    public Ship_Attacks(Bullet Bullet, Ship Ship)
+    public Ship_Attacks(Bullet Bullet, Ship Ship, float shootrate)
     {
         _bullet = Bullet;
 
         _ship = Ship;
+        _shootrate = shootrate;
+        _shootrateCooldown = _shootrate;
+    }
+
+    public void ArtificialUpdate()
+    {
+        if (isShooting)
+        {
+            Shoot();
+        }
     }
 
     public void Shoot()
     {
-
+        _shootrateCooldown += Time.deltaTime;
+        if (_shootrateCooldown >= _shootrate)
+        {
+            Debug.Log("Disparo");
+            var Bullet = BulletFactory.Instance.GetBulletFromPool();
+            _shootrateCooldown = 0;
+        }
+        
     }
 
     public void SpecialShoot()

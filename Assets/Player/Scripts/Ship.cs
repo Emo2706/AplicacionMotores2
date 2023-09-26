@@ -8,20 +8,26 @@ public class Ship : Entity
     Ship_Attacks _attacks;
     Ship_Inputs _inputs;
     Ship_Collisions _collisions;
-    public int speed;
+    public float speed;
     Rigidbody _rb;
     public Bullet _bulletPrefab;
-    public int dashforce;
+    public float dashforce;
+    [SerializeField] float _dashCooldown;
+    [SerializeField] float shootrate;
 
     [SerializeField] Controller _controller;
-
+    
 
     private void Awake()
     {
+        maxLife = PlayerStatsManager.instance.maxlife;
+        speed = PlayerStatsManager.instance.speed;
+        shootrate = PlayerStatsManager.instance.shootrate;
+        _dashCooldown = PlayerStatsManager.instance.dashcooldown;
         _rb = GetComponent<Rigidbody>();
-        _attacks = new Ship_Attacks(_bulletPrefab , this);
+        _attacks = new Ship_Attacks(_bulletPrefab , this, shootrate);
         _inputs = new Ship_Inputs(_attacks);
-        _movement = new Ship_Movement(speed, _rb , _inputs , dashforce , _controller);
+        _movement = new Ship_Movement(speed, _rb , _inputs , dashforce , _controller,_dashCooldown);
         _collisions = new Ship_Collisions(this);
 
         _inputs.CompleteData(_movement);
@@ -33,6 +39,7 @@ public class Ship : Entity
     void Update()
     {
         _inputs.ArtificialUpdate();
+        _attacks.ArtificialUpdate();
     }
 
     private void FixedUpdate()
@@ -45,13 +52,25 @@ public class Ship : Entity
     {
         _collisions.ArtificialOnCollisionEnter(collision);
     }
-    public override void TakeDmg(int dmg)
+   
+
+    public override void DamageTaken(float DMGreceived)
     {
-        _life -= dmg;
+        base.DamageTaken(DMGreceived);
     }
 
-    public void Dash()
+
+    public void Shoot()
     {
-        _movement.Dash();
+        _attacks.isShooting = true;
+    }
+    public void StopsShoot()
+    {
+        _attacks.isShooting = false;
+    }
+
+    public void ActivateDash()
+    {
+        _movement.ActivateDash();
     }
 }

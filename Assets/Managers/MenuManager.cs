@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : Bullet
+public class MenuManager : MonoBehaviour
 {
-    
     // Start is called before the first frame update
-   
-
-
-    private void FixedUpdate()
+    void Start()
     {
-        Move();
+        
     }
 
-   
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

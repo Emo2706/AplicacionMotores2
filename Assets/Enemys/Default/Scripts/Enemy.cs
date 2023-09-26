@@ -17,4 +17,13 @@ public class Enemy : EnemyGlobalScript
     {
         base.Update();
     }
+
+    public override void DamageTaken(float DMGreceived)
+    {
+        base.DamageTaken(DMGreceived);
+        if (_isDead)
+        {
+            NormalEnemyFactory.Instance.ReturnEnemyToPool(this);
+        }
+    }
 }

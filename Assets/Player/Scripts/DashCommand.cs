@@ -6,7 +6,7 @@ public class DashCommand :CommandInputs
 {
     public override void Execute(Ship ship)
     {
-        ship.Dash();
+        ship.ActivateDash();
     }
 
    

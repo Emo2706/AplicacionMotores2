@@ -30,7 +30,7 @@ public class Enemy_movement
 
     void Move()
     {
-        _transform.forward = Vector3.Lerp(_transform.position ,_ship.transform.position  , _speedRotation);
+        //_transform.forward = Vector3.Lerp(_transform.position ,_ship.transform.position  , _speedRotation);
        
     }
 

@@ -6,7 +6,7 @@ public abstract class EnemyGlobalScript : Entity
 {
     Enemy_movement _enemyMovement;
     Enemy_attacks _enemyAttacks;
-    Enemy_collisions _enemyCollisions;
+    
     Rigidbody _rb;
 
     [SerializeField] Ship _ship;
@@ -21,7 +21,7 @@ public abstract class EnemyGlobalScript : Entity
         _rb = GetComponent<Rigidbody>();
         _enemyMovement = new Enemy_movement(_ship , this , _rb , _speed , transform);
         _enemyAttacks = new Enemy_attacks(_bullet);
-        _enemyCollisions = new Enemy_collisions();
+       
     }
 
     // Update is called once per frame
@@ -34,14 +34,33 @@ public abstract class EnemyGlobalScript : Entity
     {
         _enemyMovement.ArtificialUpdate();
     }
+   
 
-    private void OnCollisionEnter(Collision collision)
+    public virtual void OnTriggerEnter(Collider other)
     {
-        _enemyCollisions.ArtificialOnCollisionEnter(collision);
+        if (other.TryGetComponent<Bullet>(out Bullet bullet))
+        {
+            DamageTaken(bullet.dmg);
+        }
     }
 
-    public override void TakeDmg(int dmg)
+    public virtual void ResetState()
     {
-        _life -= dmg;
+
     }
+
+    public static void EnemyTurnOn(EnemyGlobalScript enemy)
+    {
+        enemy.ResetState();
+        enemy.gameObject.SetActive(true);
+    }
+    public static void EnemyTurnOff(EnemyGlobalScript enemy)
+    {
+        enemy.ResetState();
+        enemy.gameObject.SetActive(false);
+    }
+
+    
+
+
 }
