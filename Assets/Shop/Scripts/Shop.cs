@@ -53,7 +53,6 @@ public class Shop : MonoBehaviour
                 {
                     CompraItem(IdElegido);
                     Debug.Log(estadisticas[IdElegido].CantComprada);
-                    Debug.Log(estadisticas[IdElegido].OrdenDePrecio.Length);
                 }
                 else Debug.Log("Se alcanzó la mejora máxima");
                 //Por ahora aunque llegues a la mejora maxima, si le das comprar, se te gasta guita igual, esto es por el Buy with normal currency. Se puede reformular para que buywithnormal currency este dentro del action comprar, o simplemente despues se hace que el botón deje de ser interactuable
@@ -78,8 +77,8 @@ public class Shop : MonoBehaviour
 
         
         
-            estadisticas[ID].precioActual = estadisticas[ID].OrdenDePrecio[estadisticas[ID].CantComprada];
             estadisticas[ID].CantComprada++;
+            estadisticas[ID].precioActual = estadisticas[ID].OrdenDePrecio[estadisticas[ID].CantComprada];
             Debug.Log("El precio ahora es de " + estadisticas[ID].OrdenDePrecio[estadisticas[ID].CantComprada]);
 
 

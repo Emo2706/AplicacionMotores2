@@ -7,8 +7,9 @@ public class BulletFactory : MonoBehaviour
     // Start is called before the first frame update
     public static BulletFactory Instance;
     BulletPool<Bullet> _playerBulletPool;
+    BulletPool<Bullet> _EnemyBulletPool;
 
-   [SerializeField] Bullet _bulletPrefab;
+   [SerializeField] Bullet[] _bulletPrefabs;
     [SerializeField] int _initialAmount;
 
     private void Awake()
@@ -22,29 +23,57 @@ public class BulletFactory : MonoBehaviour
         {
             Instance = this;
         }
+        //Creo ambas pool, pero en cada una cambio el metodo de creacion por el correspondiente
+        _playerBulletPool = new BulletPool<Bullet>(CreatorMethodNormalPlayerBullet, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
+        _EnemyBulletPool = new BulletPool<Bullet>(CreatorMethodNormalEnemyBullet, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
+
+    }
+
+    Bullet CreatorMethodNormalPlayerBullet()
+    {
+        return Instantiate(_bulletPrefabs[BalasID.Player_BalaNormal]);
+    }
+
+    Bullet CreatorMethodNormalEnemyBullet()
+    {
+        return Instantiate(_bulletPrefabs[BalasID.Enemy_BalaNormal]);
+    }
+
+    public Bullet GetBulletFromPool(int ID)
+    {
+        if (ID == BalasID.Player_BalaNormal)
+        {
+            return _playerBulletPool.GetObject();
+        }
+        else if (ID == BalasID.Enemy_BalaNormal)
+        {
+            return _EnemyBulletPool.GetObject();
+        }
+        else return default;
+
+
+    }
+
+    public void ReturnBulletToPull(Bullet Obj, int ID)
+    {
+        if (ID == BalasID.Player_BalaNormal)
+        {
+            _playerBulletPool.ReturnObject(Obj);
+        }
+        else if (ID == BalasID.Enemy_BalaNormal)
+        {
+             _EnemyBulletPool.ReturnObject(Obj);
+        }
+       
         
-        _playerBulletPool = new BulletPool<Bullet>(CreatorMethod, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
-
     }
-    void Start()
+
+    public static class BalasID
     {
-
+        public const int Player_BalaNormal = 0;
+        public const int Enemy_BalaNormal = 1;
+        
     }
 
-    Bullet CreatorMethod()
-    {
-        return Instantiate(_bulletPrefab);
-    }
 
-    public Bullet GetBulletFromPool()
-    {
-        return _playerBulletPool.GetObject();
-    }
-
-    public void ReturnBulletToPull(Bullet Obj)
-    {
-        _playerBulletPool.ReturnObject(Obj);
-    }
-
-   
 }

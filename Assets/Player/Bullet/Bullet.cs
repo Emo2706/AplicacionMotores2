@@ -22,7 +22,7 @@ public abstract class Bullet : MonoBehaviour
     {
         Move();
     }
-    private void Update()
+    protected virtual void Update()
     {
         CheckIfIsOutOfBounds();
     }
@@ -54,12 +54,12 @@ public abstract class Bullet : MonoBehaviour
     {
         if (transform.position.z >= GameManager.instance.LimiteBalasEnZ.position.z)
         {
-            BulletFactory.Instance.ReturnBulletToPull(this);
+            BulletFactory.Instance.ReturnBulletToPull(this, BulletFactory.BalasID.Player_BalaNormal);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        BulletFactory.Instance.ReturnBulletToPull(this);
+        BulletFactory.Instance.ReturnBulletToPull(this, BulletFactory.BalasID.Player_BalaNormal);
     }
 }

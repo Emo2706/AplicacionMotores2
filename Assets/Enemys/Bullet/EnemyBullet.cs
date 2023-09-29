@@ -14,5 +14,13 @@ public class EnemyBullet : Bullet
         Move();
     }
 
-   
+    public override void CheckIfIsOutOfBounds()
+    {
+        if (transform.position.z <= GameManager.instance.LimiteBalasEnZNegativo.position.z)
+        {
+            BulletFactory.Instance.ReturnBulletToPull(this, BulletFactory.BalasID.Enemy_BalaNormal);
+        }
+    }
+
+
 }

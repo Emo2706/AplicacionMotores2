@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager instance;
     public int normal_currency;
     public int Premium_currency;
+    
 
     private void Awake()
     {
@@ -35,15 +38,19 @@ public class CurrencyManager : MonoBehaviour
     public void AddNormalCurrency(int Amount)
     {
         normal_currency += Amount;
+        UIManager.instance.ChangeNormalCurrencyDisplay(normal_currency);
     }
     public bool BuyWithNormalCurrency(int Amount)
     {
         if (Amount <= normal_currency)
         {
             normal_currency -= Amount;
+            UIManager.instance.ChangeNormalCurrencyDisplay(normal_currency);
             return true;
         }
         else return false;
+        
+
     }
 
     public void AddPremiumCurrency(int Amount)

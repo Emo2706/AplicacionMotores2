@@ -9,6 +9,10 @@ public class SceneManagment : MonoBehaviour
     {
         SceneManager.LoadScene(index);
         Time.timeScale = 1f;
+        if (index == 1)
+        {
+
+        }
     }
 
 

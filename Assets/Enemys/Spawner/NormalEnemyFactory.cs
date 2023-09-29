@@ -7,8 +7,9 @@ public class NormalEnemyFactory : MonoBehaviour
     // Start is called before the first frame update
     public static NormalEnemyFactory Instance;
     BulletPool<EnemyGlobalScript> _SpawnerEnemyPool;
+    BulletPool<EnemyGlobalScript> _SpawnerBlueEnemyPool;
 
-    [SerializeField] EnemyGlobalScript _EnemyPrefab;
+    [SerializeField] public EnemyGlobalScript[] _EnemyPrefabs;
     [SerializeField] int _initialAmount;
 
     private void Awake()
@@ -22,8 +23,9 @@ public class NormalEnemyFactory : MonoBehaviour
         {
             Instance = this;
         }
-
-        _SpawnerEnemyPool = new BulletPool<EnemyGlobalScript>(CreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
+        //PREGUNTARLE AL DE MODELOS SI ESTA BIEN LA WEA DE LOS RETURN BULLETS Y ESO
+        _SpawnerEnemyPool = new BulletPool<EnemyGlobalScript>(NormalEnemyCreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
+        _SpawnerBlueEnemyPool = new BulletPool<EnemyGlobalScript>(BlueEnemyCreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
 
     }
     void Start()
@@ -31,21 +33,49 @@ public class NormalEnemyFactory : MonoBehaviour
 
     }
 
-    EnemyGlobalScript CreatorMethod()
+    EnemyGlobalScript NormalEnemyCreatorMethod()
     {
-        return Instantiate(_EnemyPrefab);
+        return Instantiate(_EnemyPrefabs[EnemiesID.Enemy_Normal]);
+    }
+    EnemyGlobalScript BlueEnemyCreatorMethod()
+    {
+        return Instantiate(_EnemyPrefabs[EnemiesID.Enemy_Blue]);
     }
 
-    public EnemyGlobalScript GetEnemyFromPool()
+    public EnemyGlobalScript GetEnemyFromPool(int ID)
     {
-        return _SpawnerEnemyPool.GetObject();
+        if (ID == EnemiesID.Enemy_Normal)
+        {
+            return _SpawnerEnemyPool.GetObject();
+        }
+        else if (ID == EnemiesID.Enemy_Blue)
+        {
+            return _SpawnerBlueEnemyPool.GetObject();
+        }
+        else return default;
+        
     }
 
-    public void ReturnEnemyToPool(EnemyGlobalScript Obj)
+    public void ReturnEnemyToPool(EnemyGlobalScript Obj, int ID)
     {
-        _SpawnerEnemyPool.ReturnObject(Obj);
+        if (ID == EnemiesID.Enemy_Normal)
+        {
+            _SpawnerEnemyPool.ReturnObject(Obj);
+        }
+        else if (ID == EnemiesID.Enemy_Blue)
+        {
+            _SpawnerBlueEnemyPool.ReturnObject(Obj);
+        }
+       
+       
     }
 
+    public static class EnemiesID
+    {
+        public const int Enemy_Normal = 0;
+        public const int Enemy_Blue = 1;
+
+    }
 
 }
 

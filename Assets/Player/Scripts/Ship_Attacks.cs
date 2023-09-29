@@ -35,7 +35,7 @@ public class Ship_Attacks
         if (_shootrateCooldown >= _shootrate)
         {
             Debug.Log("Disparo");
-            var Bullet = BulletFactory.Instance.GetBulletFromPool();
+            var Bullet = BulletFactory.Instance.GetBulletFromPool(BulletFactory.BalasID.Player_BalaNormal);
             _shootrateCooldown = 0;
         }
         

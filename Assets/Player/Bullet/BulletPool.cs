@@ -41,6 +41,7 @@ public class BulletPool<T>
         }
         else
         {
+         
             result = _currentStock[0];
             _currentStock.RemoveAt(0);
         }

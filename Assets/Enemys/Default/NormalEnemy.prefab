@@ -129,5 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 5
   _ship: {fileID: 0}
-  _speed: 3
+  _speed: 0.25
   _bullet: {fileID: 3492123619345095171, guid: 9b1137c85a830f848b1b49f0d18489e8, type: 3}
+  enemyCodeOnScene: 0
+  shootrate: 3
+  _shootrateCountdown: 0

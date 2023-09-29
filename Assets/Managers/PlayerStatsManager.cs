@@ -24,10 +24,11 @@ public class PlayerStatsManager : MonoBehaviour
         {
             instance = this;
         }
+        Shop.instance.CompraItem += ImproveStat;
     }
     void Start()
     {
-        Shop.instance.CompraItem += ImproveStat;
+      
     }
 
     public void ImproveStat(int ID)

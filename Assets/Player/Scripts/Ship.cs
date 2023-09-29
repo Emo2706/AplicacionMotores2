@@ -28,7 +28,7 @@ public class Ship : Entity
         _attacks = new Ship_Attacks(_bulletPrefab , this, shootrate);
         _inputs = new Ship_Inputs(_attacks);
         _movement = new Ship_Movement(speed, _rb , _inputs , dashforce , _controller,_dashCooldown);
-        _collisions = new Ship_Collisions(this);
+        _collisions = new Ship_Collisions(this, DamageTaken);
 
         _inputs.CompleteData(_movement);
         _inputs.BindKeys(KeyCode.LeftShift, new DashCommand());
@@ -52,11 +52,16 @@ public class Ship : Entity
     {
         _collisions.ArtificialOnCollisionEnter(collision);
     }
-   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        _collisions.ArtificialOnTriggerEnter(other);
+    }
 
     public override void DamageTaken(float DMGreceived)
     {
         base.DamageTaken(DMGreceived);
+        Debug.Log(_life);
     }
 
 

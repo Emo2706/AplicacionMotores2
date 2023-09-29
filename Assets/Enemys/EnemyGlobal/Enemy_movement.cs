@@ -8,11 +8,11 @@ public class Enemy_movement
     Vector3 _direction;
     EnemyGlobalScript _enemies;
     Rigidbody _rb;
-    int _speed;
+    float _speed;
     Transform _transform;
     float _speedRotation = 55f;
 
-    public Enemy_movement(Ship ship , EnemyGlobalScript enemies , Rigidbody rb , int speed , Transform transform)
+    public Enemy_movement(Ship ship , EnemyGlobalScript enemies , Rigidbody rb , float speed , Transform transform)
     {
         _ship = ship;
         _enemies = enemies;

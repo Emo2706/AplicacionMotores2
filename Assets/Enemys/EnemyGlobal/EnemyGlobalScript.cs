@@ -11,9 +11,11 @@ public abstract class EnemyGlobalScript : Entity
 
     [SerializeField] Ship _ship;
 
-    [SerializeField] int _speed;
+    [SerializeField] protected float _speed;
 
     [SerializeField] EnemyBullet _bullet;
+
+    [HideInInspector] public int enemyCodeOnScene;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -38,15 +40,22 @@ public abstract class EnemyGlobalScript : Entity
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Bullet>(out Bullet bullet))
+        if (other.TryGetComponent<Bullet>(out Bullet Bullet) && other.GetComponent<EnemyBullet>() == null)
         {
-            DamageTaken(bullet.dmg);
+            
+            DamageTaken(Bullet.dmg);
         }
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        
     }
 
     public virtual void ResetState()
     {
-
+        _life = maxLife;
+        transform.position = SpawnerManager.instance.gameObject.transform.position;
     }
 
     public static void EnemyTurnOn(EnemyGlobalScript enemy)
@@ -56,7 +65,8 @@ public abstract class EnemyGlobalScript : Entity
     }
     public static void EnemyTurnOff(EnemyGlobalScript enemy)
     {
-        enemy.ResetState();
+        
+        SpawnerManager.instance.EnemyKilled();
         enemy.gameObject.SetActive(false);
     }
 
