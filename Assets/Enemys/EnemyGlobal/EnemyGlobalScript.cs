@@ -34,7 +34,7 @@ public abstract class EnemyGlobalScript : Entity
 
     private void FixedUpdate()
     {
-        _enemyMovement.ArtificialUpdate();
+        //_enemyMovement.ArtificialUpdate();
     }
    
 

@@ -111,6 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedBullet: 0.7
-  bulletDirection: {x: 0, y: 0, z: -1}
+  bulletDirection: {x: -1.09, y: 0, z: -1}
   dmg: 1
-  EnemyCaller: {fileID: 0}

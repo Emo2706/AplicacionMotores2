@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+        //PREGUNTARLE AL DE MODEDLOS Y ALGORITMOS como arreglar el tema de sumarle el metodo WinScreen al Action Ganaste de Game manager, si este último todavia no está en escena
+        //El scene managment, de alguna forma debería decirle que cuando cambie de escena, este sume los metodos que quiera al gamemanager
         ChangeNormalCurrencyDisplay(CurrencyManager.instance.normal_currency);
     }
     
@@ -40,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     public void WinScreen()
     {
-
+        //activarTexto
     }
         
    

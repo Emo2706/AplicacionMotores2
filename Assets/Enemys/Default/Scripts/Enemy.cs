@@ -7,6 +7,10 @@ public class Enemy : EnemyGlobalScript
 {
     public float shootrate;
     float _actualSpeed;
+    public float entryMaxSpeed;
+    public float entrySpeedMultiplier;
+    float _entrySpeedCounter;
+    
     [HideInInspector] public float _shootrateCountdown;
     bool _changeDirection;
     // Start is called before the first frame update
@@ -15,7 +19,6 @@ public class Enemy : EnemyGlobalScript
    protected override void Start()
     {
         base.Start();
-        _speed /= 10;
     }
 
     public override void ResetState()
@@ -69,29 +72,32 @@ public class Enemy : EnemyGlobalScript
             MoveSystem = MoveSideToSide;
             AttackSystem = Shoot;
         }
-    }
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        base.OnCollisionEnter(collision);
-        if (collision.gameObject.layer == 10)
+        if (other.gameObject.layer == 10)
         {
             _changeDirection = !_changeDirection;
         }
     }
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+       
+    }
 
     void MoveDown()
     {
-        _actualSpeed = Mathf.Clamp(_actualSpeed + (Time.deltaTime), 0, _speed)/1.3f;
-        transform.position += Vector3.back * _actualSpeed;
+        _entrySpeedCounter += Time.deltaTime * entrySpeedMultiplier;
+        _actualSpeed =  Mathf.Clamp(_entrySpeedCounter , 0, entryMaxSpeed);
+        //Debug.Log(_actualSpeed);
+        transform.position += Vector3.back * _actualSpeed * Time.deltaTime;
     }
 
     void MoveSideToSide()
     {
         if (_changeDirection)
         {
-            transform.position += Vector3.right * _actualSpeed;
+            transform.position += Vector3.right * _actualSpeed * Time.deltaTime;
         }
-        else transform.position += Vector3.left * _actualSpeed;
+        else transform.position += Vector3.left * _actualSpeed * Time.deltaTime;
 
     }
 }
