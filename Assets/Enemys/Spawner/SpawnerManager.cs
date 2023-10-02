@@ -84,13 +84,22 @@ public class SpawnerManager : MonoBehaviour
                 _spawnRateCounter += Time.deltaTime;
                 if (_spawnRateCounter >= spawnRate)
                 {
+                    if (tipo_de_enemigo.ContainsKey(Rounds[_activeRound].EnemiesSpawnOrder[_enemySpawned]))
+                    {
+                        var LastEnemySpawned = NormalEnemyFactory.Instance.GetEnemyFromPool(tipo_de_enemigo[Rounds[_activeRound].EnemiesSpawnOrder[_enemySpawned]]);
+                        LastEnemySpawned.enemyCodeOnScene = _enemySpawned;
+                        enemiesAliveTest.Add(LastEnemySpawned);
+                        enemiesAlive++;
+                        
+                    }
+                    else
+                    {
 
-                    var LastEnemySpawned = NormalEnemyFactory.Instance.GetEnemyFromPool(tipo_de_enemigo[Rounds[_activeRound].EnemiesSpawnOrder[_enemySpawned]]);
-                    LastEnemySpawned.enemyCodeOnScene = _enemySpawned;
-                    enemiesAliveTest.Add(LastEnemySpawned);
+                    }
+
                     //enemiesAlive.Add(LastEnemySpawned);
+
                     _enemySpawned++;
-                    enemiesAlive++;
                     _spawnRateCounter = 0;
                 }
             }
@@ -107,7 +116,7 @@ public class SpawnerManager : MonoBehaviour
         {
             if (_activeRound == Rounds.Length -1)
             {
-                GameManager.instance.NivelCompletado();
+                GameManager.instance.NIVELGANADO();
             }
             else
             {

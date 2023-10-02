@@ -8,7 +8,11 @@ public class NormalEnemyBullet : EnemyBullet
     public override void Reset()
     {
        bulletDirection = new Vector3(Random.Range(-1f, 1f), 0, -1);
-        
+       float rotY = Mathf.Atan2(bulletDirection.x, bulletDirection.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, rotY, 0);
+
+
+
     }
 
     // Update is called once per frame

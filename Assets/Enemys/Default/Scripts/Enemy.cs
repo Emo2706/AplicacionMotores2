@@ -40,6 +40,12 @@ public class Enemy : EnemyGlobalScript
         AttackSystem();
         MoveSystem();
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CurrencyType Currency = CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
+            Currency.gameObject.transform.position = transform.position;
+        }
+
     }
 
     public override void DamageTaken(float DMGreceived)
@@ -48,6 +54,8 @@ public class Enemy : EnemyGlobalScript
         if (_isDead)
         {
             NormalEnemyFactory.Instance.ReturnEnemyToPool(this, NormalEnemyFactory.EnemiesID.Enemy_Normal);
+            CurrencyType CurrencyDrop = CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
+            CurrencyDrop.gameObject.transform.position = gameObject.transform.position;
         }
     }
 

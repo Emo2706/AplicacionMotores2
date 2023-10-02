@@ -21,23 +21,28 @@ public class CurrencyManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManager.SubscribeToEvent(EventManager.EventsType.Event_GrabCoin, AddNormalCurrency);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            EventManager.TriggerEvent(EventManager.EventsType.Event_GrabCoin, 100);
+        }
     }
 
-    public void AddNormalCurrency(int Amount)
+    public void AddNormalCurrency(params object []parameters)
     {
-        normal_currency += Amount;
+        normal_currency += (int) parameters[0];
+        Debug.Log(normal_currency);
         UIManager.instance.ChangeNormalCurrencyDisplay(normal_currency);
     }
     public bool BuyWithNormalCurrency(int Amount)

@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        NivelCompletado += MensajeGanaste;
+        EventManager.SubscribeToEvent(EventManager.EventsType.Event_NivelCompletado, MensajeGanaste);
+        
     }
 
     // Update is called once per frame
@@ -35,9 +36,14 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    void MensajeGanaste()
+    void MensajeGanaste(params object[] p)
     {
         GanasteTextoPlaceholder.gameObject.SetActive(true);
         Debug.Log("Ganaste!");
+    }
+
+   public void NIVELGANADO()
+    {
+        EventManager.TriggerEvent(EventManager.EventsType.Event_NivelCompletado);
     }
 }

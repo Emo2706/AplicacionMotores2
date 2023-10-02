@@ -5,7 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagment : MonoBehaviour
 {
-   public void LoadScene(int index)
+    public static SceneManagment instance;
+    private void Awake()
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+    public void LoadScene(int index)
     {
         SceneManager.LoadScene(index);
         Time.timeScale = 1f;
@@ -26,5 +40,10 @@ public class SceneManagment : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public static int GetActiveScene()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
     }
 }

@@ -67,7 +67,11 @@ public abstract class EnemyGlobalScript : Entity
     {
         
         SpawnerManager.instance.EnemyKilled();
+       
         enemy.gameObject.SetActive(false);
+        //CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
+       
+
     }
 
     

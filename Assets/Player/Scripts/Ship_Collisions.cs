@@ -25,6 +25,11 @@ public class Ship_Collisions
             Damagetaken(EnemyBullet.dmg);
             
         }
+        if (other.TryGetComponent<Moneda>(out Moneda moneda))
+        {
+            EventManager.TriggerEvent(EventManager.EventsType.Event_GrabCoin, moneda.value);
+            CurrencyFactory.instance.ReturnCurrencyToPoll(CurrencyFactory.Currency_Type.NormalCurrency, moneda);
+        }
     }
     
 }

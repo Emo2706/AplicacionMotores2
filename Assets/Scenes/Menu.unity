@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 710693766}
   - component: {fileID: 710693765}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: UIManagerMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalCurrencyDisplay: {fileID: 411034487}
+  normalCurrencyDisplayGM: {fileID: 0}
 --- !u!4 &710693766
 Transform:
   m_ObjectHideFlags: 0
@@ -3687,10 +3688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxlife: 3
-  speed: 4
+  speed: 8
   dmg: 5
-  shootrate: 1
-  bulletspeed: 4
+  shootrate: 0.5
+  bulletspeed: 10
   dashcooldown: 2
 --- !u!4 &2049197078
 Transform:

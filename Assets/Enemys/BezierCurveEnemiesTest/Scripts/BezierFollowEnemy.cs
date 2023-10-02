@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BezierFollowEnemy : EnemyGlobalScript
 {
-    [SerializeField]
+   
     private Transform[] routes;
 
-    private int routeToGo;
+    public RouteFather Trayecto;
 
-    private float tParam;
+    private int _routeToGo;
 
-    private Vector3 objectPosition;
+    private float _tParam;
+
+    private Vector3 _objectPosition;
 
 
     private bool coroutineAllowed;
@@ -24,9 +26,10 @@ public class BezierFollowEnemy : EnemyGlobalScript
     public override void ResetState()
     {
         _life = maxLife;
-        routeToGo = 0;
-        tParam = 0f;
+        _routeToGo = 0;
+        _tParam = 0f;
         coroutineAllowed = true;
+        routes = Trayecto.rutas;
     }
 
 
@@ -35,8 +38,10 @@ public class BezierFollowEnemy : EnemyGlobalScript
     {
         if (coroutineAllowed)
         {
-            StartCoroutine(GoByTheRoute(routeToGo));
+            StartCoroutine(GoByTheRoute(_routeToGo));
         }
+
+       
     }
     
     
@@ -50,24 +55,24 @@ public class BezierFollowEnemy : EnemyGlobalScript
         Vector3 p2 = routes[routeNum].GetChild(2).position;
         Vector3 p3 = routes[routeNum].GetChild(3).position;
 
-        while (tParam < 1)
+        while (_tParam < 1)
         {
-            tParam += Time.deltaTime * _speed;
+            _tParam += Time.deltaTime * _speed;
 
-            objectPosition = Mathf.Pow(1 - tParam, 3) * p0 + 3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 + 3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
+            _objectPosition = Mathf.Pow(1 - _tParam, 3) * p0 + 3 * Mathf.Pow(1 - _tParam, 2) * _tParam * p1 + 3 * (1 - _tParam) * Mathf.Pow(_tParam, 2) * p2 + Mathf.Pow(_tParam, 3) * p3;
 
-            transform.LookAt(objectPosition);
-            transform.position = objectPosition;
+            transform.LookAt(_objectPosition);
+            transform.position = _objectPosition;
             yield return new WaitForEndOfFrame();
         }
 
-        tParam = 0f;
+        _tParam = 0f;
 
-        routeToGo += 1;
+        _routeToGo += 1;
 
-        if (routeToGo > routes.Length - 1)
+        if (_routeToGo > routes.Length - 1)
         {
-            routeToGo = 0;
+            _routeToGo = 1;
         }
 
         coroutineAllowed = true;

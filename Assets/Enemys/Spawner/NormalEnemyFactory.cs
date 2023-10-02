@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class NormalEnemyFactory : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     public static NormalEnemyFactory Instance;
     BulletPool<EnemyGlobalScript> _SpawnerEnemyPool;
     BulletPool<EnemyGlobalScript> _SpawnerBlueEnemyPool;
+    BulletPool<EnemyGlobalScript> _SpawnerBezierCurveEnemyPool;
 
     [SerializeField] public EnemyGlobalScript[] _EnemyPrefabs;
     [SerializeField] int _initialAmount;
@@ -26,6 +28,7 @@ public class NormalEnemyFactory : MonoBehaviour
         //PREGUNTARLE AL DE MODELOS SI ESTA BIEN LA WEA DE LOS RETURN BULLETS Y ESO
         _SpawnerEnemyPool = new BulletPool<EnemyGlobalScript>(NormalEnemyCreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
         _SpawnerBlueEnemyPool = new BulletPool<EnemyGlobalScript>(BlueEnemyCreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
+        _SpawnerBezierCurveEnemyPool = new BulletPool<EnemyGlobalScript>(BezierCurveEnemyCreatorMethod, EnemyGlobalScript.EnemyTurnOn, EnemyGlobalScript.EnemyTurnOff, _initialAmount);
 
     }
     void Start()
@@ -41,6 +44,10 @@ public class NormalEnemyFactory : MonoBehaviour
     {
         return Instantiate(_EnemyPrefabs[EnemiesID.Enemy_Blue]);
     }
+    EnemyGlobalScript BezierCurveEnemyCreatorMethod()
+    {
+        return Instantiate(_EnemyPrefabs[EnemiesID.Enemy_BezierCurve]);
+    }
 
     public EnemyGlobalScript GetEnemyFromPool(int ID)
     {
@@ -52,6 +59,11 @@ public class NormalEnemyFactory : MonoBehaviour
         {
             return _SpawnerBlueEnemyPool.GetObject();
         }
+        else if (ID == EnemiesID.Enemy_BezierCurve)
+        {
+            return _SpawnerBezierCurveEnemyPool.GetObject();
+        }
+
         else return default;
         
     }
@@ -66,14 +78,20 @@ public class NormalEnemyFactory : MonoBehaviour
         {
             _SpawnerBlueEnemyPool.ReturnObject(Obj);
         }
-       
-       
+        else if (ID == EnemiesID.Enemy_BezierCurve)
+        {
+            _SpawnerBezierCurveEnemyPool.ReturnObject(Obj);
+        }
+
+
     }
 
     public static class EnemiesID
     {
         public const int Enemy_Normal = 0;
         public const int Enemy_Blue = 1;
+        public const int Enemy_BezierCurve = 2;
+
 
     }
 
