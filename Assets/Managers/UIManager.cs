@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text normalCurrencyDisplayGM;
     [SerializeField] GameObject _hurtEffect;
     [SerializeField] AnimationClip _hurtEffectClip;
+    [SerializeField] GameObject _GameOverUI;
+
     public TMP_Text lifeDisplay;
     public AnimationCurve monederoAnimationCurve;
     Vector3 _initMonederoScale;
@@ -65,6 +67,9 @@ public class UIManager : MonoBehaviour
             _GoText_IMG = _GoText.gameObject.GetComponent<Image>();
             EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, ChangeLifeDisplay);
             EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, StartCorroutineHurtEffect);
+            EventManager.SubscribeToEvent(EventManager.EventsType.Event_GameOver, StartCorroutineGameOverSequence);
+
+            ChangeLifeDisplay(null, 3);
             StartCoroutine(LevelBeginTextsAnimation());
 
 
@@ -106,6 +111,7 @@ public class UIManager : MonoBehaviour
 
     void ChangeLifeDisplay(params object[] parameters)
     {
+        //No sabemos porque tira error
         lifeDisplay.text = parameters[1].ToString();
     }
 
@@ -180,6 +186,18 @@ public class UIManager : MonoBehaviour
         yield return null;
 
     }
+
+    void StartCorroutineGameOverSequence(params object[] parameters)
+    {
+        StartCoroutine(GameOverSequenceCorroutine());
+    }
+    IEnumerator GameOverSequenceCorroutine()
+    {
+        GameManager.instance.ChangeTimeState(0);
+        _GameOverUI.gameObject.SetActive(true);
+        yield return null;
+    }
+
 
 
 

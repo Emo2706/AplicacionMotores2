@@ -69,7 +69,10 @@ public class Ship : Entity
     public override void DamageTaken(float DMGreceived)
     {
         base.DamageTaken(DMGreceived);
-        Debug.Log(life);
+        if (_isDead)
+            EventManager.TriggerEvent(EventManager.EventsType.Event_GameOver);
+
+        
     }
     void PlayerReceivesDamage(params object[] parameters)
     {

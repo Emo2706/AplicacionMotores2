@@ -8,6 +8,7 @@ public class SceneManagment : MonoBehaviour
     public static SceneManagment instance;
     private void Awake()
     {
+
         if (instance)
         {
             Destroy(gameObject);
@@ -16,6 +17,7 @@ public class SceneManagment : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 

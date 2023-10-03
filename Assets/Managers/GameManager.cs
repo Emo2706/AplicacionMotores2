@@ -46,4 +46,9 @@ public class GameManager : MonoBehaviour
     {
         EventManager.TriggerEvent(EventManager.EventsType.Event_NivelCompletado);
     }
+
+    public void ChangeTimeState(float TimeScale)
+    {
+        Time.timeScale = TimeScale;
+    }
 }

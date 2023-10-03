@@ -23,7 +23,7 @@ public class Ship_Collisions
         if (other.TryGetComponent<EnemyBullet>(out EnemyBullet EnemyBullet))
         {
             
-            EventManager.TriggerEvent(EventManager.EventsType.Event_PlayerTakesDmg, EnemyBullet.dmg, _ship.life);
+            EventManager.TriggerEvent(EventManager.EventsType.Event_PlayerTakesDmg, EnemyBullet.dmg, _ship.life - EnemyBullet.dmg);
 
             
         }
