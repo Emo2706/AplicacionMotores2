@@ -25,7 +25,7 @@ public class BezierFollowEnemy : EnemyGlobalScript
     // Start is called before the first frame update
     public override void ResetState()
     {
-        _life = maxLife;
+        life = maxLife;
         _routeToGo = 0;
         _tParam = 0f;
         coroutineAllowed = true;

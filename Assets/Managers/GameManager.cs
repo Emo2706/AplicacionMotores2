@@ -7,7 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public Transform LimiteBalasEnZ, LimiteBalasEnZNegativo;
+    public Transform LimiteBalasEnZ, LimiteBalasEnZNegativo, LimiteEnemigosDerecha,LimiteEnemigosIzquierda;
     public Ship player;
     public Action NivelCompletado;
     public TMP_Text GanasteTextoPlaceholder;

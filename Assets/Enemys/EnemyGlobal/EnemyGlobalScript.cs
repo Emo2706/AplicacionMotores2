@@ -54,7 +54,7 @@ public abstract class EnemyGlobalScript : Entity
 
     public virtual void ResetState()
     {
-        _life = maxLife;
+        life = maxLife;
         transform.position = SpawnerManager.instance.gameObject.transform.position;
     }
 

@@ -8,6 +8,7 @@ public class BulletFactory : MonoBehaviour
     public static BulletFactory Instance;
     BulletPool<Bullet> _playerBulletPool;
     BulletPool<Bullet> _EnemyBulletPool;
+    BulletPool<Bullet> _BlueEnemyBulletPool;
 
    [SerializeField] Bullet[] _bulletPrefabs;
     [SerializeField] int _initialAmount;
@@ -26,7 +27,7 @@ public class BulletFactory : MonoBehaviour
         //Creo ambas pool, pero en cada una cambio el metodo de creacion por el correspondiente
         _playerBulletPool = new BulletPool<Bullet>(CreatorMethodNormalPlayerBullet, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
         _EnemyBulletPool = new BulletPool<Bullet>(CreatorMethodNormalEnemyBullet, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
-
+        _BlueEnemyBulletPool = new BulletPool<Bullet>(CreatorMethodBlueEnemyBullet, Bullet.BulletTurnOn, Bullet.BulletTurnoff, _initialAmount);
     }
 
     Bullet CreatorMethodNormalPlayerBullet()
@@ -39,6 +40,11 @@ public class BulletFactory : MonoBehaviour
         return Instantiate(_bulletPrefabs[BalasID.Enemy_BalaNormal]);
     }
 
+    Bullet CreatorMethodBlueEnemyBullet()
+    {
+        return Instantiate(_bulletPrefabs[BalasID.Enemy_BalaBlueEnemy]);
+    }
+
     public Bullet GetBulletFromPool(int ID)
     {
         if (ID == BalasID.Player_BalaNormal)
@@ -48,6 +54,10 @@ public class BulletFactory : MonoBehaviour
         else if (ID == BalasID.Enemy_BalaNormal)
         {
             return _EnemyBulletPool.GetObject();
+        }
+        else if (ID == BalasID.Enemy_BalaBlueEnemy)
+        {
+            return _BlueEnemyBulletPool.GetObject();
         }
         else return default;
 
@@ -64,6 +74,10 @@ public class BulletFactory : MonoBehaviour
         {
              _EnemyBulletPool.ReturnObject(Obj);
         }
+        else if (ID == BalasID.Enemy_BalaBlueEnemy)
+        {
+            _BlueEnemyBulletPool.ReturnObject(Obj);
+        }
        
         
     }
@@ -72,6 +86,7 @@ public class BulletFactory : MonoBehaviour
     {
         public const int Player_BalaNormal = 0;
         public const int Enemy_BalaNormal = 1;
+        public const int Enemy_BalaBlueEnemy = 2;
         
     }
 

@@ -28,12 +28,20 @@ public class Ship : Entity
         _attacks = new Ship_Attacks(_bulletPrefab , this, shootrate);
         _inputs = new Ship_Inputs(_attacks);
         _movement = new Ship_Movement(speed, _rb , _inputs , dashforce , _controller,_dashCooldown);
-        _collisions = new Ship_Collisions(this, DamageTaken);
+        _collisions = new Ship_Collisions(this);
 
         _inputs.CompleteData(_movement);
         _inputs.BindKeys(KeyCode.LeftShift, new DashCommand());
     }
+    protected override void Start()
+    {
+        base.Start();
+        EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, PlayerReceivesDamage);
+
+    }
+
     
+
 
     // Update is called once per frame
     void Update()
@@ -61,7 +69,12 @@ public class Ship : Entity
     public override void DamageTaken(float DMGreceived)
     {
         base.DamageTaken(DMGreceived);
-        Debug.Log(_life);
+        Debug.Log(life);
+    }
+    void PlayerReceivesDamage(params object[] parameters)
+    {
+        float dmg = (float)parameters[0];
+        DamageTaken(dmg);
     }
 
 

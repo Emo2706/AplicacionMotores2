@@ -13,8 +13,10 @@ public class UIManager : MonoBehaviour
 
     [Header("In Game")]
     public TMP_Text normalCurrencyDisplayGM;
+    [SerializeField] GameObject _hurtEffect;
+    [SerializeField] AnimationClip _hurtEffectClip;
+    public TMP_Text lifeDisplay;
     public AnimationCurve monederoAnimationCurve;
-    public AnimationCurve monederoAnimationCurveEnding;
     Vector3 _initMonederoScale;
     Vector3 _maxMonederoScale;
     float _monederoScaleTime = 0.2f;
@@ -30,6 +32,7 @@ public class UIManager : MonoBehaviour
     Image _GoText_IMG;
     [SerializeField] int _numberofGoTextFlashesTime;
     [SerializeField] float _secondsWithinFlashes;
+   
 
     // Start is called before the first frame update
     private void Awake()
@@ -60,7 +63,9 @@ public class UIManager : MonoBehaviour
             _initMonederoScale = MonederoUI_RT.localScale;
             _maxMonederoScale = _initMonederoScale * 1.2f;
             _GoText_IMG = _GoText.gameObject.GetComponent<Image>();
-            StartCoroutine(LevelBegin());
+            EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, ChangeLifeDisplay);
+            EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, StartCorroutineHurtEffect);
+            StartCoroutine(LevelBeginTextsAnimation());
 
 
 
@@ -70,7 +75,7 @@ public class UIManager : MonoBehaviour
             EventManager.UnsubscribeToEvent(EventManager.EventsType.Event_GrabCoin, UIGrabCoinAnimation);
         }
         ChangeNormalCurrencyDisplay();
-
+        
     }
 
 
@@ -98,6 +103,12 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(MonederoAnimation());
     }
+
+    void ChangeLifeDisplay(params object[] parameters)
+    {
+        lifeDisplay.text = parameters[1].ToString();
+    }
+
 
 
     public void WinScreen()
@@ -136,7 +147,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    IEnumerator LevelBegin()
+    IEnumerator LevelBeginTextsAnimation()
     {
         _ReadyText.gameObject.SetActive(true);
         yield return new WaitForSeconds(_readyTextClip.length);
@@ -155,7 +166,23 @@ public class UIManager : MonoBehaviour
         _GoText.SetActive(false);
         yield return null;
     }
-    
 
-   
+    void StartCorroutineHurtEffect(params object[] parameters)
+    {
+        StartCoroutine(HurtImageEffectCorroutine());
+    }
+
+    IEnumerator HurtImageEffectCorroutine()
+    {
+        _hurtEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_hurtEffectClip.length);
+        _hurtEffect.gameObject.SetActive(false);
+        yield return null;
+
+    }
+
+
+
+
+
 }

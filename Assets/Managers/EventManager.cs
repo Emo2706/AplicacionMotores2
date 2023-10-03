@@ -10,7 +10,8 @@ public abstract class EventManager : MonoBehaviour
         Event_InicioNivel,
         Event_NivelCompletado,
         Event_GameOver,
-        Event_GrabCoin
+        Event_GrabCoin,
+        Event_PlayerTakesDmg
             
     }
     public delegate void EventReceiver( params object[] parameters);

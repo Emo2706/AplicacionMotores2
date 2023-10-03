@@ -5,18 +5,18 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour, I_Damagable
 {
     public int maxLife;
-   protected float _life;
+   [HideInInspector]public float life;
     protected bool _isDead;
 
-    private void Start()
+    protected virtual void Start()
     {
-        _life = maxLife;
+        life = maxLife;
     }
 
     public virtual void DamageTaken(float DMGreceived)
     {
-        _life -= DMGreceived;
-        if (_life <= 0)
+        life -= DMGreceived;
+        if (life <= 0)
         {
             _isDead = true;
         }

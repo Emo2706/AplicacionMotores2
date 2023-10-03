@@ -6,12 +6,12 @@ using System;
 public class Ship_Collisions 
 {
     Ship _ship;
-    Action<float> Damagetaken;
+   
     
-    public Ship_Collisions(Ship Ship, Action<float> DMGtaken)
+    public Ship_Collisions(Ship Ship)
     {
         _ship = Ship;
-        Damagetaken = DMGtaken;
+        
     }
     public void ArtificialOnCollisionEnter(Collision collision)
     {
@@ -22,7 +22,9 @@ public class Ship_Collisions
     {
         if (other.TryGetComponent<EnemyBullet>(out EnemyBullet EnemyBullet))
         {
-            Damagetaken(EnemyBullet.dmg);
+            
+            EventManager.TriggerEvent(EventManager.EventsType.Event_PlayerTakesDmg, EnemyBullet.dmg, _ship.life);
+
             
         }
         if (other.TryGetComponent<Moneda>(out Moneda moneda))
