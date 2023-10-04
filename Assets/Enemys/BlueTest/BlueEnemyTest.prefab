@@ -129,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 15
   life: 0
+  _EnemyCanvasPrefab: {fileID: 6977036292161517472, guid: 9b99904b28adfd341af595c64cdcfc00, type: 3}
+  _canvasEnemyOffset: {x: 0, y: 0, z: -1}
   _ship: {fileID: 0}
   _speed: 0.5
   _bullet: {fileID: 0}

@@ -34,7 +34,10 @@ public class UIManager : MonoBehaviour
     Image _GoText_IMG;
     [SerializeField] int _numberofGoTextFlashesTime;
     [SerializeField] float _secondsWithinFlashes;
-   
+
+    [SerializeField] Slider LevelProgressBar;
+    RectTransform _levelProgressbarRT;
+    [SerializeField] Image[] _banderines;
 
     // Start is called before the first frame update
     private void Awake()
@@ -48,13 +51,13 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
         }
-       
+        _levelProgressbarRT = LevelProgressBar.gameObject.GetComponent<RectTransform>();
+
     }
     void Start()
     {
-       
         
-       
+
         //PREGUNTARLE AL DE MODEDLOS Y ALGORITMOS como arreglar el tema de sumarle el metodo WinScreen al Action Ganaste de Game manager, si este último todavia no está en escena
         //El scene managment, de alguna forma debería decirle que cuando cambie de escena, este sume los metodos que quiera al gamemanager
         //ChangeNormalCurrencyDisplay(CurrencyManager.instance.normal_currency);
@@ -80,7 +83,6 @@ public class UIManager : MonoBehaviour
             EventManager.UnsubscribeToEvent(EventManager.EventsType.Event_GrabCoin, UIGrabCoinAnimation);
         }
         ChangeNormalCurrencyDisplay();
-        
     }
 
 
@@ -198,8 +200,27 @@ public class UIManager : MonoBehaviour
         yield return null;
     }
 
+    public void SetProgressVarUI(int[] AmountOfEnemies, int totalAmountOfEnemies)
+    {
+        float offsetEnTotal = 0;
+        float promedio = 0;
+        for (int i = 0; i < AmountOfEnemies.Length; i++)
+        {
+            _banderines[i].gameObject.SetActive(true);
+            promedio = _levelProgressbarRT.sizeDelta.x / totalAmountOfEnemies;
+            float offsetActual = promedio * AmountOfEnemies[i];
+            offsetEnTotal += offsetActual;
+            Debug.Log(offsetEnTotal);
+            _banderines[i].rectTransform.anchoredPosition = (_levelProgressbarRT.anchoredPosition - 
+                _levelProgressbarRT.sizeDelta.x / 2 * Vector2.right) + Vector2.right * offsetEnTotal ;
 
+        }
+    }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(LevelProgressBar.gameObject.transform.position - Vector3.right * LevelProgressBar.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2, LevelProgressBar.gameObject.transform.position + Vector3.right * LevelProgressBar.gameObject.transform.localScale.x / 2);
+    }
 
 
 

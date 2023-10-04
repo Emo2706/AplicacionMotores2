@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class EnemyGlobalScript : Entity
 {
@@ -8,6 +9,10 @@ public abstract class EnemyGlobalScript : Entity
     Enemy_attacks _enemyAttacks;
     
     Rigidbody _rb;
+    [SerializeField] Canvas _EnemyCanvasPrefab;
+    protected Canvas _canvasEnemy;
+    protected Slider _sliderHealthBar;
+    [SerializeField] Vector3 _canvasEnemyOffset;
 
     [SerializeField] Ship _ship;
 
@@ -18,16 +23,24 @@ public abstract class EnemyGlobalScript : Entity
     [HideInInspector] public int enemyCodeOnScene;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected override void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        base.Start();
+        _canvasEnemy = Instantiate(_EnemyCanvasPrefab, transform.position + _canvasEnemyOffset, transform.rotation);
+        _canvasEnemy.transform.SetParent(transform);
+        _sliderHealthBar = _canvasEnemy.GetComponentInChildren<Slider>();
+
+        /*_rb = GetComponent<Rigidbody>();
         _enemyMovement = new Enemy_movement(_ship , this , _rb , _speed , transform);
-        _enemyAttacks = new Enemy_attacks(_bullet);
-       
+        _enemyAttacks = new Enemy_attacks(_bullet);*/
     }
 
+
+
+
+
     // Update is called once per frame
-   protected virtual void Update()
+    protected virtual void Update()
     {
            _enemyAttacks.ArtificialUpdate();
     }
@@ -54,6 +67,9 @@ public abstract class EnemyGlobalScript : Entity
 
     public virtual void ResetState()
     {
+        
+        _canvasEnemy?.gameObject.SetActive(false);
+
         life = maxLife;
         transform.position = SpawnerManager.instance.gameObject.transform.position;
     }

@@ -111,11 +111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 0
+  life: 0
+  _EnemyCanvasPrefab: {fileID: 6977036292161517472, guid: 9b99904b28adfd341af595c64cdcfc00, type: 3}
   _ship: {fileID: 0}
   _speed: 0.8
   _bullet: {fileID: 0}
   enemyCodeOnScene: 0
-  routes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Trayecto: {fileID: 0}

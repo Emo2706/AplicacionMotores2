@@ -121,8 +121,11 @@ public class BlueEnemy : EnemyGlobalScript
     public override void DamageTaken(float DMGreceived)
     {
         base.DamageTaken(DMGreceived);
+        _canvasEnemy.gameObject.SetActive(true);
+        _sliderHealthBar.value = life / maxLife;
         if (_isDead)
         {
+            _canvasEnemy.gameObject.SetActive(false);
             NormalEnemyFactory.Instance.ReturnEnemyToPool(this, NormalEnemyFactory.EnemiesID.Enemy_Normal);
             CurrencyType CurrencyDrop = CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
             CurrencyDrop.gameObject.transform.position = gameObject.transform.position;

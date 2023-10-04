@@ -3,7 +3,10 @@ guid: 732bd20f5bd08e541b9df2c4189ee58a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _EnemyCanvasPrefab: {fileID: 6977036292161517472, guid: 9b99904b28adfd341af595c64cdcfc00, type: 3}
+  - _ship: {instanceID: 0}
+  - _bullet: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

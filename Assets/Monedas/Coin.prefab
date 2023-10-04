@@ -4915,6 +4915,7 @@ MonoBehaviour:
   _speedrotatino: 100
   _fallingIncreaseSpeed: 12
   _fallingIncreaseSpeedMultiplicator: 2
+  _attractDistance: 2
 --- !u!65 &7318301620277970230
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1227,6 +1227,7 @@ MonoBehaviour:
   normalCurrencyDisplayGM: {fileID: 0}
   _hurtEffect: {fileID: 0}
   _hurtEffectClip: {fileID: 0}
+  _GameOverUI: {fileID: 0}
   lifeDisplay: {fileID: 0}
   monederoAnimationCurve:
     serializedVersion: 2
@@ -2851,7 +2852,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1424696150}
         m_TargetAssemblyTypeName: CurrencyManager, Assembly-CSharp
-        m_MethodName: AddNormalCurrency
+        m_MethodName: AddNormalCurrencyButton
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

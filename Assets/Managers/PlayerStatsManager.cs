@@ -48,7 +48,7 @@ public class PlayerStatsManager : MonoBehaviour
         }
         if (ID == EstadisticasId.Shootrate)
         {
-            shootrate += shootrate * 0.15f;
+            shootrate -= shootrate * 0.15f;
         }
         if (ID == EstadisticasId.BulletSpeed)
         {

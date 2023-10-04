@@ -73,4 +73,9 @@ public class CurrencyManager : MonoBehaviour
         else return false;
     }
 
+    public void AddNormalCurrencyButton(int Amount)
+    {
+        AddNormalCurrency(Amount);
+    }
+
 }

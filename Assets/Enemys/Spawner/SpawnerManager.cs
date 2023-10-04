@@ -44,6 +44,9 @@ public class SpawnerManager : MonoBehaviour
             {NormalEnemyFactory.Instance._EnemyPrefabs[NormalEnemyFactory.EnemiesID.Enemy_Blue], NormalEnemyFactory.EnemiesID.Enemy_Blue}
             
         };
+        LevelManager.instance.CountTotalAmountOfEnemies(Rounds);
+
+
     }
 
     // Update is called once per frame
