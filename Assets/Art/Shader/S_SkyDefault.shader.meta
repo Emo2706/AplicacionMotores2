@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: e1ac817dec80d364ba10e544e289e4ad
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Simple_SkyNight_02512x512: {fileID: 2800000, guid: f4b64674087513543aeaf84ecd5731cd, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
