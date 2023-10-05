@@ -4910,7 +4910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063c1379bc32b6145bdacd2d0c07208e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 5
+  value: 15
   _speed: 0.2
   _speedrotatino: 100
   _fallingIncreaseSpeed: 12

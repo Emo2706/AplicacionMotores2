@@ -19,6 +19,7 @@ public class SpawnerManager : MonoBehaviour
     int _enemySpawned;
     int _activeRound;
     public Dictionary<EnemyGlobalScript, int> tipo_de_enemigo;
+    int _enemiesKilled;
 
     private void Awake()
     {
@@ -114,6 +115,7 @@ public class SpawnerManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemiesAlive = Mathf.Clamp(enemiesAlive -1, 0, 1000);
+        UIManager.instance.UIAirshipadvance();
         //enemiesAlive.RemoveAt(enemyCode);
         if (_enemySpawned >= Rounds[_activeRound].EnemiesSpawnOrder.Length && enemiesAlive <= 0)
         {

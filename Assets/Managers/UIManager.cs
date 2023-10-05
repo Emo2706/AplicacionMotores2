@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
         }
+        if(SceneManagment.GetActiveScene() == 1)
         _levelProgressbarRT = LevelProgressBar.gameObject.GetComponent<RectTransform>();
 
     }
@@ -74,7 +75,7 @@ public class UIManager : MonoBehaviour
 
             ChangeLifeDisplay(null, 3);
             StartCoroutine(LevelBeginTextsAnimation());
-
+            LevelProgressBar.value = 0;
 
 
         }
@@ -202,6 +203,7 @@ public class UIManager : MonoBehaviour
 
     public void SetProgressVarUI(int[] AmountOfEnemies, int totalAmountOfEnemies)
     {
+        
         float offsetEnTotal = 0;
         float promedio = 0;
         for (int i = 0; i < AmountOfEnemies.Length; i++)
@@ -215,11 +217,16 @@ public class UIManager : MonoBehaviour
                 _levelProgressbarRT.sizeDelta.x / 2 * Vector2.right) + Vector2.right * offsetEnTotal ;
 
         }
+        LevelProgressBar.maxValue = totalAmountOfEnemies;
+    }
+    public void UIAirshipadvance()
+    {
+        LevelProgressBar.value++;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(LevelProgressBar.gameObject.transform.position - Vector3.right * LevelProgressBar.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2, LevelProgressBar.gameObject.transform.position + Vector3.right * LevelProgressBar.gameObject.transform.localScale.x / 2);
+        //Gizmos.DrawLine(LevelProgressBar.gameObject.transform.position - Vector3.right * LevelProgressBar.gameObject.GetComponent<RectTransform>().sizeDelta.x / 2, LevelProgressBar.gameObject.transform.position + Vector3.right * LevelProgressBar.gameObject.transform.localScale.x / 2);
     }
 
 

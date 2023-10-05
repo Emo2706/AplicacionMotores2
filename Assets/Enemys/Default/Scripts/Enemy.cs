@@ -60,8 +60,14 @@ public class Enemy : EnemyGlobalScript
             _canvasEnemy.gameObject.SetActive(false);
 
             NormalEnemyFactory.Instance.ReturnEnemyToPool(this, NormalEnemyFactory.EnemiesID.Enemy_Normal);
-            CurrencyType CurrencyDrop = CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
-            CurrencyDrop.gameObject.transform.position = gameObject.transform.position;
+            int chance = UnityEngine.Random.Range(0, 101);
+            if (chance >= 75)
+            {
+                CurrencyType CurrencyDrop = CurrencyFactory.instance.GetCurrencyFromPool(CurrencyFactory.Currency_Type.NormalCurrency);
+                CurrencyDrop.gameObject.transform.position = gameObject.transform.position;
+
+            }
+            
         }
     }
 

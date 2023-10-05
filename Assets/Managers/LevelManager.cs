@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public int[] amountOfEnemiesPerRow;
-    int _totalAmountOfEnemeis;
+   public int totalAmountOfEnemeis;
     // Start is called before the first frame update
 
     private void Awake()
@@ -46,12 +46,15 @@ public class LevelManager : MonoBehaviour
             for (int E = 0; E < EnemiesArray[i].EnemiesSpawnOrder.Length; E++)
             {
                 amountOfEnemiesPerRow[i]++;
-                _totalAmountOfEnemeis++;
+                totalAmountOfEnemeis++;
             }
             Debug.Log(amountOfEnemiesPerRow[i]);
         }
+        Debug.Log(totalAmountOfEnemeis);
 
-        UIManager.instance.SetProgressVarUI(amountOfEnemiesPerRow, _totalAmountOfEnemeis);
+        UIManager.instance.SetProgressVarUI(amountOfEnemiesPerRow, totalAmountOfEnemeis);
         
     }
+
+
 }
