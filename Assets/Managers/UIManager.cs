@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _hurtEffect;
     [SerializeField] AnimationClip _hurtEffectClip;
     [SerializeField] GameObject _GameOverUI;
+    [SerializeField] GameObject _VictoryUI;
 
     public TMP_Text lifeDisplay;
     public AnimationCurve monederoAnimationCurve;
@@ -58,8 +59,8 @@ public class UIManager : MonoBehaviour
     {
         
 
-        //PREGUNTARLE AL DE MODEDLOS Y ALGORITMOS como arreglar el tema de sumarle el metodo WinScreen al Action Ganaste de Game manager, si este último todavia no está en escena
-        //El scene managment, de alguna forma debería decirle que cuando cambie de escena, este sume los metodos que quiera al gamemanager
+        //PREGUNTARLE AL DE MODEDLOS Y ALGORITMOS como arreglar el tema de sumarle el metodo WinScreen al Action Ganaste de Game manager, si este ï¿½ltimo todavia no estï¿½ en escena
+        //El scene managment, de alguna forma deberï¿½a decirle que cuando cambie de escena, este sume los metodos que quiera al gamemanager
         //ChangeNormalCurrencyDisplay(CurrencyManager.instance.normal_currency);
         EventManager.SubscribeToEvent(EventManager.EventsType.Event_GrabCoin, ChangeNormalCurrencyDisplay);
         if (SceneManagment.GetActiveScene() == 1)
@@ -71,7 +72,7 @@ public class UIManager : MonoBehaviour
             EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, ChangeLifeDisplay);
             EventManager.SubscribeToEvent(EventManager.EventsType.Event_PlayerTakesDmg, StartCorroutineHurtEffect);
             EventManager.SubscribeToEvent(EventManager.EventsType.Event_GameOver, StartCorroutineGameOverSequence);
-
+            EventManager.SubscribeToEvent(EventManager.EventsType.Event_NivelCompletado, WinScreen);
             ChangeLifeDisplay(null, 3);
             StartCoroutine(LevelBeginTextsAnimation());
 
@@ -119,9 +120,9 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void WinScreen()
+    public void WinScreen(params object[] parameters)
     {
-        //activarTexto
+        _VictoryUI.SetActive(true);
     }
         
    IEnumerator MonederoAnimation()
